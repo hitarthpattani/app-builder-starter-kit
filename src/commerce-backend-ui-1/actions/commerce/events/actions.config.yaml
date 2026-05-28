@@ -1,5 +1,5 @@
 place-order-consumer:
-  function: ../../../../../build/actions/commerce/events/place-order/consumer/index.js
+  function: ../../../../build/actions/commerce/events/place-order/consumer/index.js
   web: 'no'
   runtime: nodejs:22
   inputs:

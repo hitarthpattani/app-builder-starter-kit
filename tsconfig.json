@@ -52,7 +52,6 @@
   "include": [
     "src/commerce-backend-ui-1/web-src/src/**/*",
     "src/commerce-backend-ui-1/actions/**/*",
-    "src/commerce-backend-ui-1/commerce/**/*",
     "src/commerce-backend-ui-1/lib/**/*",
     "src/commerce-backend-ui-1/scripts/**/*",
     "src/commerce-backend-ui-1/test/**/*"

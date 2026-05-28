@@ -24,7 +24,6 @@
   },
   "include": [
     "src/commerce-backend-ui-1/actions/**/*",
-    "src/commerce-backend-ui-1/commerce/**/*",
     "src/commerce-backend-ui-1/lib/**/*",
     "src/commerce-backend-ui-1/scripts/**/*"
   ],

@@ -70,11 +70,7 @@
     },
     {
       "files": ["app.commerce.config.ts"],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-      ],
+      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
       "parserOptions": {
         "project": "./tsconfig.commerce.config.json"
       },

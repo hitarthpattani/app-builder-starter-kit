@@ -1,53 +1,50 @@
-import { defineConfig } from "@adobe/aio-commerce-lib-app/config";
+import { defineConfig } from '@adobe/aio-commerce-lib-app/config'
 
 export default defineConfig({
   metadata: {
-    id: "adobe-commerce-app-builder-starter-kit",
-    displayName: "Adobe Commerce App Builder Starter Kit",
-    version: "1.0.0",
-    description:
-      "A custom Adobe Commerce application. Fill description for your app.",
+    id: 'adobe-commerce-app-builder-starter-kit',
+    displayName: 'Adobe Commerce App Builder Starter Kit',
+    version: '1.0.0',
+    description: 'A custom Adobe Commerce application. Fill description for your app.'
   },
   businessConfig: {
     schema: [
       {
-        type: "list",
-        name: "sampleList",
-        label: "Sample List",
-        selectionMode: "multiple",
-        default: ["a"],
+        type: 'list',
+        name: 'sampleList',
+        label: 'Sample List',
+        selectionMode: 'multiple',
+        default: ['a'],
         options: [
-          { label: "Option A", value: "a" },
-          { label: "Option B", value: "b" },
-        ],
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' }
+        ]
       },
       {
-        type: "text",
-        name: "sampleText",
-        label: "Sample Text",
-        default: "Hello, world!",
-      },
-    ],
+        type: 'text',
+        name: 'sampleText',
+        label: 'Sample Text',
+        default: 'Hello, world!'
+      }
+    ]
   },
   eventing: {
     commerce: [
       {
         provider: {
-          label: "Commerce Events",
-          description: "A description for your Commerce Events.",
+          label: 'Commerce Events',
+          description: 'A description for your Commerce Events.'
         },
         events: [
           {
-            name: "observer.sales_order_place_after",
-            label: "Sales Order Place After",
-            fields: [
-              { name: "order" }
-            ],
-            runtimeActions: ["commerce-events/place-order-consumer"],
-            description: "Triggered when an order is placed",
-          },
-        ],
-      },
-    ],
-  },
-});
+            name: 'observer.sales_order_place_after',
+            label: 'Sales Order Place After',
+            fields: [{ name: 'order' }],
+            runtimeActions: ['commerce-events/place-order-consumer'],
+            description: 'Triggered when an order is placed'
+          }
+        ]
+      }
+    ]
+  }
+})

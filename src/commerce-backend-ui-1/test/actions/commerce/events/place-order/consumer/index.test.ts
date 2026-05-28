@@ -3,7 +3,7 @@
  */
 
 import type { SuccessResponse } from '@adobe-commerce/aio-toolkit'
-import { main as placeOrderConsumer } from '../../../../../commerce/events/place-order/consumer/index'
+import { main as placeOrderConsumer } from '@actions/commerce/events/place-order/consumer/index'
 
 type ActionParams = Record<string, unknown>
 
@@ -36,5 +36,4 @@ describe('commerce/events/place-order/consumer', () => {
     expect(body.success).toBe(true)
     expect(body.params).toEqual(baseParams)
   })
-
 })
