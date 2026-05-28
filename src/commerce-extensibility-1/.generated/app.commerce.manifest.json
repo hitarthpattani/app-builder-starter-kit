@@ -33,7 +33,7 @@
       {
         "events": [
           {
-            "description": "Triggered when an order is placed",
+            "description": "Triggered when a checkout is submitted",
             "fields": [
               {
                 "name": "order"
@@ -42,7 +42,7 @@
             "label": "Checkout Submit All After",
             "name": "observer.checkout_submit_all_after",
             "runtimeActions": [
-              "commerce-events/place-order-consumer"
+              "commerce-events/checkout-submit-consumer"
             ]
           }
         ],

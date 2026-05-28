@@ -3,7 +3,7 @@
  */
 
 import type { SuccessResponse } from '@adobe-commerce/aio-toolkit'
-import { main as placeOrderConsumer } from '@actions/commerce/events/place-order/consumer/index'
+import { main as checkoutSubmitConsumer } from '@actions/commerce/events/checkout-submit/consumer/index'
 
 type ActionParams = Record<string, unknown>
 
@@ -23,13 +23,13 @@ const baseParams: ActionParams = {
   orderId: '12345'
 }
 
-describe('commerce/events/place-order/consumer', () => {
+describe('commerce/events/checkout-submit/consumer', () => {
   it('should be defined', () => {
-    expect(placeOrderConsumer).toBeInstanceOf(Function)
+    expect(checkoutSubmitConsumer).toBeInstanceOf(Function)
   })
 
   it('should return success response with params', async () => {
-    const response = (await placeOrderConsumer(baseParams)) as SuccessResponse
+    const response = (await checkoutSubmitConsumer(baseParams)) as SuccessResponse
     const body = response.body as Record<string, unknown>
 
     expect(response.statusCode).toBe(200)
