@@ -13,3 +13,7 @@ runtimeManifest:
       license: Apache-2.0
       actions:
         $include: actions/admin-ui-sdk/actions.config.yaml
+    example:
+      license: Apache-2.0
+      actions:
+        $include: actions/example/actions.config.yaml
