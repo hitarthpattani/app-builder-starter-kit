@@ -67,6 +67,7 @@
     "dev:validate": "npm run build:all && npm run lint:check && npm run format:check && npm run type-check && npm run test:ci",
     "dev:setup": "npm install && npm run prepare",
     "app": "aio app run -e commerce/backend-ui/1",
+    "deploy": "aio app deploy --force-deploy",
     "setup": "npx aio-toolkit-cli-workflow env:setup && aio app db provision",
     "setup:config": "npx aio-toolkit-cli-workflow env:setup --config-file && aio app db provision",
     "db:provision": "aio app db provision",

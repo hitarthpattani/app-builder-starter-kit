@@ -3,7 +3,7 @@ application:
     post-app-build: mkdir -p dist/application/actions
   runtimeManifest:
     database:
-      auto-provision: true
+      auto-provision: false
       region: amer
     packages: {}
 extensions:
