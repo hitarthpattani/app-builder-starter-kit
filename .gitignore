@@ -45,5 +45,6 @@ HPattaniExtCompile-*.json
 # Admin UI SDK (root server only, not actions)
 /admin-ui-sdk
 
-# StarterKit.json files
+# Workspace config files
 *-StarterKit.json
+*-HPattani.json
