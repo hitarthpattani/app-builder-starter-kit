@@ -70,6 +70,7 @@
     "setup": "npx aio-toolkit-cli-workflow env:setup && aio app db provision",
     "setup:config": "npx aio-toolkit-cli-workflow env:setup --config-file && aio app db provision",
     "db:provision": "aio app db provision",
+    "generate": "npx aio-commerce-lib-app generate all",
     "reset": "npx aio-toolkit-cli-workflow env:reset",
     "format": "prettier --write --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json app.commerce.config.ts app.config.yaml install.yaml *.md docs/*.md",
     "format:check": "prettier --check --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json app.commerce.config.ts app.config.yaml install.yaml *.md docs/*.md",

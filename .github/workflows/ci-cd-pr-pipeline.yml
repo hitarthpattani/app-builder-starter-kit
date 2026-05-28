@@ -34,6 +34,9 @@ jobs:
       - name: Format Check
         run: npm run format:check
 
+      - name: Type Check
+        run: npm run type-check
+
       - name: Tests (Unit Tests)
         run: npm run test:ci
 

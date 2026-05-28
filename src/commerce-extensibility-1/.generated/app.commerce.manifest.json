@@ -33,22 +33,22 @@
       {
         "events": [
           {
-            "description": "Use case description for the event.",
+            "description": "Triggered when an order is placed",
             "fields": [
               {
-                "name": "*"
+                "name": "order"
               }
             ],
-            "label": "Sample Event",
-            "name": "plugin.sample_event",
+            "label": "Sales Order Place After",
+            "name": "observer.sales_order_place_after",
             "runtimeActions": [
-              "my-package/handle-sample-event"
+              "commerce-events/place-order-consumer"
             ]
           }
         ],
         "provider": {
-          "description": "A description for your Commerce Events provider.",
-          "label": "Commerce Events Provider"
+          "description": "A description for your Commerce Events.",
+          "label": "Commerce Events"
         }
       }
     ]

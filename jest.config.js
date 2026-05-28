@@ -12,11 +12,10 @@ module.exports = {
     ]
   },
   collectCoverageFrom: [
-    'src/commerce-backend-ui-1/**/*.{js,jsx,ts,tsx}',
+    'src/commerce-backend-ui-1/actions/**/*.{js,ts}',
+    'src/commerce-backend-ui-1/lib/**/*.{js,ts}',
     '!src/commerce-backend-ui-1/**/*.d.ts',
-    '!src/commerce-backend-ui-1/**/node_modules/**',
-    '!src/commerce-backend-ui-1/test/**',
-    '!src/commerce-backend-ui-1/web-src/**'
+    '!src/commerce-backend-ui-1/**/types.ts'
   ],
   moduleNameMapper: {
     '^@actions/(.*)$': '<rootDir>/src/commerce-backend-ui-1/actions/$1',
