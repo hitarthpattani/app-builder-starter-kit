@@ -37,7 +37,7 @@ export default defineConfig({
         },
         events: [
           {
-            name: 'observer.sales_order_place_after',
+            name: 'observer.checkout_submit_all_after',
             label: 'Sales Order Place After',
             fields: [{ name: 'order' }],
             runtimeActions: ['commerce-events/place-order-consumer'],
