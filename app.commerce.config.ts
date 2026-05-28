@@ -38,7 +38,7 @@ export default defineConfig({
         events: [
           {
             name: 'observer.checkout_submit_all_after',
-            label: 'Sales Order Place After',
+            label: 'Checkout Submit All After',
             fields: [{ name: 'order' }],
             runtimeActions: ['commerce-events/place-order-consumer'],
             description: 'Triggered when an order is placed'

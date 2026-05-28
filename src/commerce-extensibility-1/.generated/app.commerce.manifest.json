@@ -39,7 +39,7 @@
                 "name": "order"
               }
             ],
-            "label": "Sales Order Place After",
+            "label": "Checkout Submit All After",
             "name": "observer.checkout_submit_all_after",
             "runtimeActions": [
               "commerce-events/place-order-consumer"
