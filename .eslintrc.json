@@ -69,6 +69,28 @@
       }
     },
     {
+      "files": ["app.commerce.config.ts"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.commerce.config.json"
+      },
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_"
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.config.js", "jest.setup.js"],
       "env": {
         "node": true

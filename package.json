@@ -1,11 +1,14 @@
 {
-  "name": "HPattaniToolkitDev",
-  "version": "0.0.1",
+  "name": "adobe-commerce-app-builder-starter-kit",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@adobe-commerce/aio-experience-kit": "^1.0.4",
     "@adobe-commerce/aio-toolkit": "^1.2.6",
     "@adobe-commerce/commerce-extensibility-tools": "^3.4.0",
+    "@adobe/aio-commerce-lib-app": "^1.4.0",
+    "@adobe/aio-commerce-lib-config": "^1.3.0",
+    "@adobe/aio-commerce-sdk": "^1.1.2",
     "@adobe/aio-lib-db": "^1.0.3",
     "@adobe/aio-lib-ims": "^8.1.2",
     "@adobe/aio-lib-telemetry": "^1.2.0",
@@ -68,10 +71,10 @@
     "setup:config": "npx aio-toolkit-cli-workflow env:setup --config-file && aio app db provision",
     "db:provision": "aio app db provision",
     "reset": "npx aio-toolkit-cli-workflow env:reset",
-    "format": "prettier --write --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json *.md docs/*.md",
-    "format:check": "prettier --check --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json *.md docs/*.md",
-    "lint": "eslint --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks",
-    "lint:check": "eslint --no-error-on-unmatched-pattern --max-warnings 0 src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks",
+    "format": "prettier --write --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/commerce src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json *.md docs/*.md",
+    "format:check": "prettier --check --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/commerce src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks .eslintrc.json *.md docs/*.md",
+    "lint": "eslint --no-error-on-unmatched-pattern src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/commerce src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks",
+    "lint:check": "eslint --no-error-on-unmatched-pattern --max-warnings 0 src/commerce-backend-ui-1/test src/commerce-backend-ui-1/actions src/commerce-backend-ui-1/commerce src/commerce-backend-ui-1/scripts src/commerce-backend-ui-1/lib src/commerce-backend-ui-1/web-src hooks",
     "lint:fix": "npm run lint -- --fix",
     "pretest": "echo 'Testing TypeScript source files directly'",
     "test": "jest",
@@ -91,12 +94,14 @@
     "build:all": "npm run build:extended",
     "clean:build": "rm -rf build",
     "prebuild:extended": "npm run clean:build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "npx aio-commerce-lib-app hooks postinstall"
   },
   "engines": {
     "node": ">=18"
   },
   "aio-app-builder-templates": [
     "@adobe/generator-app-excshell"
-  ]
+  ],
+  "description": "A custom Adobe Commerce application. Fill description for your app."
 }

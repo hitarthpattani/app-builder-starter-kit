@@ -74,7 +74,7 @@ jobs:
           version: 10.x.x
 
       - name: Validate Authorization (AIO CLI)
-        uses: adobe/aio-apps-action@3.3.0
+        uses: adobe/aio-apps-action@4.1.0
         with:
           os: ${{ matrix.os }}
           command: oauth_sts
@@ -92,7 +92,7 @@ jobs:
           IMS_OAUTH_S2S_CLIENT_SECRET: ${{ secrets.CLIENTSECRET_STAGE }}
           IMS_OAUTH_S2S_ORG_ID: ${{ secrets.IMSORGID_STAGE }}
           IMS_OAUTH_S2S_SCOPES: ${{ secrets.SCOPES_STAGE }}
-        uses: adobe/aio-apps-action@3.3.0
+        uses: adobe/aio-apps-action@4.1.0
         with:
           os: ${{ matrix.os }}
           command: build
@@ -111,7 +111,7 @@ jobs:
           IMS_OAUTH_S2S_CLIENT_SECRET: ${{ secrets.CLIENTSECRET_STAGE }}
           IMS_OAUTH_S2S_ORG_ID: ${{ secrets.IMSORGID_STAGE }}
           IMS_OAUTH_S2S_SCOPES: ${{ secrets.SCOPES_STAGE }}
-        uses: adobe/aio-apps-action@3.3.0
+        uses: adobe/aio-apps-action@4.1.0
         with:
           os: ${{ matrix.os }}
           command: deploy

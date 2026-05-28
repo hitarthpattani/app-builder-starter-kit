@@ -1,0 +1,9 @@
+place-order-consumer:
+  function: ../../../../../build/actions/commerce/events/place-order/consumer/index.js
+  web: 'no'
+  runtime: nodejs:22
+  inputs:
+    LOG_LEVEL: debug
+  annotations:
+    require-adobe-auth: true
+    final: true
