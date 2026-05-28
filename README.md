@@ -9,7 +9,7 @@ This project wires up a `commerce/backend-ui/1` extension with:
 - **Admin UI** — React app using React Spectrum and the Admin UI SDK (`@adobe/uix-guest`) to run inside the Commerce Admin
 - **Runtime actions** — Example actions (including Admin UI SDK registration) built with `@adobe-commerce/aio-toolkit`
 - **Shared libraries** — Reusable code under `src/commerce-backend-ui-1/lib` (for example, `database/repository/user`)
-- **Tooling** — TypeScript, Jest unit tests, e2e tests, ESLint, Prettier, and deploy hooks
+- **Tooling** — TypeScript, Jest unit tests, ESLint, Prettier, and deploy hooks
 
 After console setup and `npm run reset` / `npm run setup`, you can run the UI locally, deploy to your dev workspace, and extend the sample components and actions.
 
@@ -196,7 +196,6 @@ src/commerce-backend-ui-1/
 ├── lib/              # Shared TypeScript used by actions
 ├── web-src/          # Admin UI (React)
 ├── test/             # Unit tests for actions and lib
-├── e2e/              # E2E tests for actions
 └── ext.config.yaml   # Extension manifest (packages, web, hooks)
 ```
 
@@ -271,27 +270,27 @@ The UI calls Runtime actions over HTTP (see `components/ActionsForm/`). Action U
 
 ### Tests mirror source
 
-| You change                    | Add or update tests in                    |
-| ----------------------------- | ----------------------------------------- |
-| `actions/<package>/<action>/` | `test/actions/<package>/`                 |
-| `lib/<module>/`               | `test/lib/<module>/`                      |
-| Action behavior end-to-end    | `e2e/actions/<package>/` (\*.e2e.test.ts) |
+| You change                    | Add or update tests in    |
+| ----------------------------- | ------------------------- |
+| `actions/<package>/<action>/` | `test/actions/<package>/` |
+| `lib/<module>/`               | `test/lib/<module>/`      |
 
 Run `npm run build:all` before deploy so `build/actions/` matches your latest `actions/` and `lib/` sources.
 
 ## Test & Coverage
 
-Tests use [Jest](https://jestjs.io/) with [ts-jest](https://kulshekhar.github.io/ts-jest/) (`jest.config.js`). Unit tests target **actions** and **shared libraries** under `src/commerce-backend-ui-1`; the Admin UI (`web-src`) is excluded from the default Jest run (see [configuration](#jest-configuration) below).
+Tests use [Jest](https://jestjs.io/) with [ts-jest](https://kulshekhar.github.io/ts-jest/) (`jest.config.js`). **Use the npm scripts below** — not `aio app test`. This starter kit runs Jest directly against TypeScript in `test/`, with path aliases and a **100%** coverage gate. CI, Husky pre-push, and `dev:validate` all call `npm run test:ci`, so local runs stay aligned with the pipeline.
+
+Unit tests target **actions** and **shared libraries** under `src/commerce-backend-ui-1`; the Admin UI (`web-src`) is excluded (see [configuration](#jest-configuration) below).
 
 ### Commands
 
 | Command                 | Description                                                           |
 | ----------------------- | --------------------------------------------------------------------- |
-| `npm test`              | Run unit tests once                                                   |
+| `npm test`              | Run unit tests once (day-to-day development)                          |
 | `npm run test:watch`    | Run unit tests in watch mode                                          |
-| `npm run test:coverage` | Run unit tests with coverage report                                   |
-| `npm run test:ci`       | CI mode: single run with coverage, no watch (used in CI and pre-push) |
-| `npm run e2e`           | Run end-to-end tests only (no coverage)                               |
+| `npm run test:coverage` | Run unit tests with coverage report (inspect `coverage/` locally)     |
+| `npm run test:ci`       | **Recommended before push** — CI mode with coverage, no watch         |
 | `npm run dev:validate`  | Full local gate: build, lint, format check, type-check, and `test:ci` |
 
 ### Test layout
@@ -301,20 +300,17 @@ src/commerce-backend-ui-1/
 ├── test/                    # Unit tests (mirrors actions/ and lib/)
 │   ├── actions/
 │   └── lib/
-├── e2e/                     # E2E tests (*.e2e.test.ts)
-│   └── actions/
 ├── actions/                 # Code under test
 └── lib/
 ```
 
-- **Unit tests** live in `test/` and import from `actions/` and `lib/` using the same path aliases as production code (`@actions/*`, `@lib/*`, etc.).
-- **E2E tests** live in `e2e/` and exercise actions end-to-end (for example, registration responses). They run on a separate Jest invocation via `npm run e2e`.
+Unit tests live in `test/` and import from `actions/` and `lib/` using the same path aliases as production code (`@actions/*`, `@lib/*`, etc.).
 
 ### Coverage
 
 Coverage is collected from `src/commerce-backend-ui-1/**/*.{js,jsx,ts,tsx}` with these exclusions:
 
-- `test/`, `e2e/`, `web-src/`, type definitions, and `node_modules`
+- `test/`, `web-src/`, type definitions, and `node_modules`
 
 Reports are written to `coverage/` (text, `lcov`, and HTML).
 
@@ -327,23 +323,12 @@ Reports are written to `coverage/` (text, `lcov`, and HTML).
 | **Environment**     | `node`                                                       |
 | **Roots**           | `src/commerce-backend-ui-1`                                  |
 | **Unit test match** | Files under `test/`, or `*.test.*` / `*.spec.*`              |
-| **Ignored paths**   | `e2e/`, `hooks/`, `web-src/`, `node_modules/`                |
+| **Ignored paths**   | `hooks/`, `web-src/`, `node_modules/`                        |
 | **Transform**       | `ts-jest` (uses root `tsconfig.json`)                        |
 | **Timeout**         | 30s per test (`jest.setup.js` also sets a 10s default)       |
 | **Setup**           | `jest.setup.js` (mocks console noise; keeps `console.error`) |
 
 Path aliases in tests match the app (`@actions`, `@lib`, `@web`, `@components`, `@types`, `@utils`) via `moduleNameMapper` in `jest.config.js`.
-
-### Adobe I/O CLI (optional)
-
-You can also use the App Builder CLI:
-
-```bash
-aio app test
-aio app test --e2e
-```
-
-This starter kit’s CI, Husky hooks, and `dev:validate` use the **npm scripts** above so local results match the pipeline.
 
 ## Deploy & Cleanup
 
