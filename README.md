@@ -8,14 +8,42 @@ This project wires up a `commerce/backend-ui/1` extension with:
 
 - **Admin UI** — React app using React Spectrum and the Admin UI SDK (`@adobe/uix-guest`) to run inside the Commerce Admin
 - **Runtime actions** — Example actions (including Admin UI SDK registration) built with `@adobe-commerce/aio-toolkit`
-- **Shared libraries** — Reusable code under `src/commerce-backend-ui-1/lib` (for example, `user-manager`)
+- **Shared libraries** — Reusable code under `src/commerce-backend-ui-1/lib` (for example, `database/repository/user`)
 - **Tooling** — TypeScript, Jest unit tests, e2e tests, ESLint, Prettier, and deploy hooks
 
 After console setup and `npm run reset` / `npm run setup`, you can run the UI locally, deploy to your dev workspace, and extend the sample components and actions.
 
 ## Prerequisites
 
-Before working with this starter kit locally, create and configure a project in the [Adobe Developer Console](https://developer.adobe.com/console).
+Before working with this starter kit locally, configure the Adobe I/O CLI and create a project in the [Adobe Developer Console](https://developer.adobe.com/console).
+
+### Adobe I/O CLI installation (required for database)
+
+This starter kit uses **App Builder Data Services** and `@adobe/aio-lib-db`. The DB integration in the Adobe I/O CLI depends on current versions of the App Builder plugins.
+
+**1. Uninstall early access plugins (if applicable)**
+
+If you previously installed early access versions of these plugins, uninstall them **before** updating `@adobe/aio-cli`:
+
+```bash
+aio plugins:uninstall @adobe/aio-cli-plugin-app
+aio plugins:uninstall @adobe/aio-cli-plugin-app-storage
+```
+
+**2. Update the Adobe I/O CLI**
+
+The DB plugin requires:
+
+- `@adobe/aio-cli-plugin-app` **14.7.0** or higher
+- `@adobe/aio-cli-plugin-app-storage` **1.5.0** or higher
+
+Install the latest CLI globally — it pulls in compatible plugin versions automatically:
+
+```bash
+npm install -g @adobe/aio-cli
+```
+
+Verify plugins after install with `aio plugins`. Complete this step before `npm run setup` (which provisions the database via `aio app db provision` after linking your project).
 
 ### 1. Create a project
 
@@ -37,12 +65,12 @@ This keeps your Runtime namespace and credentials isolated. It also aligns with 
 
 In **your development workspace**, add the following APIs (add each one from **Add API** / **Add to project** as needed):
 
-| API | Purpose |
-| --- | --- |
-| **I/O Management API** | Manage Runtime namespaces, credentials, and App Builder project configuration |
-| **I/O Events** | Eventing infrastructure for App Builder and integrations |
-| **Adobe I/O Events for Adobe Commerce** | Commerce-specific events and webhooks |
-| **App Builder Data Services** | Data storage and services used by App Builder apps |
+| API                                     | Purpose                                                                       |
+| --------------------------------------- | ----------------------------------------------------------------------------- |
+| **I/O Management API**                  | Manage Runtime namespaces, credentials, and App Builder project configuration |
+| **I/O Events**                          | Eventing infrastructure for App Builder and integrations                      |
+| **Adobe I/O Events for Adobe Commerce** | Commerce-specific events and webhooks                                         |
+| **App Builder Data Services**           | Data storage and services used by App Builder apps                            |
 
 Complete any OAuth or service configuration steps the console prompts for (for example, linking a Commerce instance for Commerce events).
 
@@ -54,11 +82,11 @@ After [Prerequisites](#prerequisites) are complete, follow the steps below. The 
 
 ### Local requirements
 
-| Requirement | Notes |
-| --- | --- |
-| **Node.js** `>=18` | See `engines` in `package.json`. Node 20 LTS is used in CI. |
-| **Git** | Required for Husky git hooks (clone the repo, do not only copy files without `.git`). |
-| **Adobe I/O CLI** | Install globally for `aio app run`, `aio app deploy`, and `aio app test`: `npm install -g @adobe/aio-cli` |
+| Requirement        | Notes                                                                                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Node.js** `>=18` | See `engines` in `package.json`. Node 20 LTS is used in CI.                                                                                  |
+| **Git**            | Required for Husky git hooks (clone the repo, do not only copy files without `.git`).                                                        |
+| **Adobe I/O CLI**  | Latest global install per [Prerequisites](#adobe-io-cli-installation-required-for-database) (uninstall early access plugins first if needed) |
 
 ### Step 1: Clone and install
 
@@ -79,10 +107,27 @@ npm run reset
 npm run setup
 ```
 
-| Command | What it does | When to use |
-| --- | --- | --- |
-| **`npm run reset`** | Clears prior local App Builder config and generates a fresh **`.aio`** and **`.env`** scaffold from the toolkit | First clone, new machine, wrong project linked, or stale `.env` / `.aio` |
-| **`npm run setup`** | Interactive wizard: pick console **project**, **development workspace**, and Runtime credentials; fills in `.aio` and `.env` | After every `reset`, or when you need to re-link without wiping files |
+| Command                    | What it does                                                                                                                 | When to use                                                              |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **`npm run reset`**        | Clears prior local App Builder config and generates a fresh **`.aio`** and **`.env`** scaffold from the toolkit              | First clone, new machine, wrong project linked, or stale `.env` / `.aio` |
+| **`npm run setup`**        | Links console **project** and workspace (`.aio`, `.env`), then runs **`aio app db provision`** for App Builder Data Services | After every `reset`, or when you need to re-link without wiping files    |
+| **`npm run db:provision`** | Provisions the database only (same as `aio app db provision`)                                                                | Workspace already linked; re-run after Data Services API changes         |
+
+**Database region**
+
+By default, `npm run setup` runs `aio app db provision` without a region. To target a specific region, pass `--region` to the provision command:
+
+```bash
+npm run db:provision -- --region <region-code>
+```
+
+Or run the CLI directly:
+
+```bash
+aio app db provision --region <region-code>
+```
+
+Use this when your workspace or Data Services configuration requires a non-default region. If the default provision during `npm run setup` is not correct for your project, run `npm run db:provision` with `--region` after setup completes.
 
 During `npm run setup`, choose:
 
@@ -90,15 +135,15 @@ During `npm run setup`, choose:
 - **Your development workspace** (for example `dev-yourname`) — **not** Stage or Production
 - The correct Runtime namespace and credentials when prompted
 
-When setup finishes, confirm `.aio` and `.env` exist in the project root and that `.env` contains your Runtime credentials. Regenerate values later with `aio app use` if needed.
+When setup finishes, confirm `.aio` and `.env` exist in the project root, that `.env` contains your Runtime credentials, and that database provisioning completed without errors. Regenerate env values later with `aio app use` if needed; re-provision the DB with `npm run db:provision` if required.
 
 **Variants**
 
-| Scenario | Commands |
-| --- | --- |
-| First-time setup (recommended) | `npm run reset` then `npm run setup` |
-| Re-link project/workspace only (`.aio` / `.env` already valid) | `npm run setup` |
-| Automated / scripted setup | `npm run setup:config` (uses a config file) |
+| Scenario                                                       | Commands                                                  |
+| -------------------------------------------------------------- | --------------------------------------------------------- |
+| First-time setup (recommended)                                 | `npm run reset` then `npm run setup`                      |
+| Re-link project/workspace only (`.aio` / `.env` already valid) | `npm run setup`                                           |
+| Automated / scripted setup                                     | `npm run setup:config` (config file + database provision) |
 
 > **Why reset before setup?**  
 > `reset` ensures you start from a clean `.aio` and `.env` so `setup` does not merge with outdated credentials or the wrong workspace. Skipping `reset` on first setup can leave you linked to another developer’s config or an old namespace.
@@ -116,10 +161,10 @@ npm run app            # start local dev server
 
 Husky is configured automatically on `npm install`. Hooks enforce quality checks before commits and pushes:
 
-| Hook | Runs |
-| --- | --- |
-| **pre-commit** | `lint:fix`, `format`, `type-check` |
-| **pre-push** | `dev:validate` (`build:all`, `lint:check`, `format:check`, `type-check`, `test:ci`) |
+| Hook           | Runs                                                                                |
+| -------------- | ----------------------------------------------------------------------------------- |
+| **pre-commit** | `lint:fix`, `format`, `type-check`                                                  |
+| **pre-push**   | `dev:validate` (`build:all`, `lint:check`, `format:check`, `type-check`, `test:ci`) |
 
 The `dev:setup` script (`npm install` + `prepare`) is equivalent to [Step 1](#step-1-clone-and-install) if you prefer a single command after cloning.
 
@@ -155,11 +200,11 @@ src/commerce-backend-ui-1/
 └── ext.config.yaml   # Extension manifest (packages, web, hooks)
 ```
 
-| Area | Path | Import alias | Built for Runtime? |
-| --- | --- | --- | --- |
-| Runtime actions | `actions/` | `@actions/*` | Yes (`npm run build:all` → `build/actions/`) |
-| Shared libraries | `lib/` | `@lib/*` | Yes (bundled with actions) |
-| Admin UI | `web-src/` | `@web/*`, `@components/*`, `@types/*`, `@utils/*` | No (served as static web) |
+| Area             | Path       | Import alias                                      | Built for Runtime?                           |
+| ---------------- | ---------- | ------------------------------------------------- | -------------------------------------------- |
+| Runtime actions  | `actions/` | `@actions/*`                                      | Yes (`npm run build:all` → `build/actions/`) |
+| Shared libraries | `lib/`     | `@lib/*`                                          | Yes (bundled with actions)                   |
+| Admin UI         | `web-src/` | `@web/*`, `@components/*`, `@types/*`, `@utils/*` | No (served as static web)                    |
 
 ### Runtime actions
 
@@ -191,12 +236,12 @@ Use `actions/constants.ts` for values shared across actions (for example extensi
 
 **Where:** `src/commerce-backend-ui-1/lib/<module-name>/`
 
-Put reusable TypeScript here: services, clients, validators, domain helpers — anything actions need but that should not live in a single action file. The sample `lib/user-manager/` shows a small class with co-located `types.ts`.
+Put reusable TypeScript here: services, clients, validators, domain helpers — anything actions need but that should not live in a single action file. The sample `lib/database/` layout uses collections (`lib/database/collection/`) and repositories (`lib/database/repository/`).
 
 **How to use**
 
 ```typescript
-import UserManager from '@lib/user-manager'
+import { UserRepository } from '@lib/database/repository/user'
 ```
 
 - Import from actions via `@lib/*` (see `tsconfig.extended.json`).
@@ -226,11 +271,11 @@ The UI calls Runtime actions over HTTP (see `components/ActionsForm/`). Action U
 
 ### Tests mirror source
 
-| You change | Add or update tests in |
-| --- | --- |
-| `actions/<package>/<action>/` | `test/actions/<package>/` |
-| `lib/<module>/` | `test/lib/<module>/` |
-| Action behavior end-to-end | `e2e/actions/<package>/` (*.e2e.test.ts) |
+| You change                    | Add or update tests in                    |
+| ----------------------------- | ----------------------------------------- |
+| `actions/<package>/<action>/` | `test/actions/<package>/`                 |
+| `lib/<module>/`               | `test/lib/<module>/`                      |
+| Action behavior end-to-end    | `e2e/actions/<package>/` (\*.e2e.test.ts) |
 
 Run `npm run build:all` before deploy so `build/actions/` matches your latest `actions/` and `lib/` sources.
 
@@ -240,14 +285,14 @@ Tests use [Jest](https://jestjs.io/) with [ts-jest](https://kulshekhar.github.io
 
 ### Commands
 
-| Command | Description |
-| --- | --- |
-| `npm test` | Run unit tests once |
-| `npm run test:watch` | Run unit tests in watch mode |
-| `npm run test:coverage` | Run unit tests with coverage report |
-| `npm run test:ci` | CI mode: single run with coverage, no watch (used in CI and pre-push) |
-| `npm run e2e` | Run end-to-end tests only (no coverage) |
-| `npm run dev:validate` | Full local gate: build, lint, format check, type-check, and `test:ci` |
+| Command                 | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| `npm test`              | Run unit tests once                                                   |
+| `npm run test:watch`    | Run unit tests in watch mode                                          |
+| `npm run test:coverage` | Run unit tests with coverage report                                   |
+| `npm run test:ci`       | CI mode: single run with coverage, no watch (used in CI and pre-push) |
+| `npm run e2e`           | Run end-to-end tests only (no coverage)                               |
+| `npm run dev:validate`  | Full local gate: build, lint, format check, type-check, and `test:ci` |
 
 ### Test layout
 
@@ -277,15 +322,15 @@ Reports are written to `coverage/` (text, `lcov`, and HTML).
 
 ### Jest configuration
 
-| Setting | Value |
-| --- | --- |
-| **Environment** | `node` |
-| **Roots** | `src/commerce-backend-ui-1` |
-| **Unit test match** | Files under `test/`, or `*.test.*` / `*.spec.*` |
-| **Ignored paths** | `e2e/`, `hooks/`, `web-src/`, `node_modules/` |
-| **Transform** | `ts-jest` (uses root `tsconfig.json`) |
-| **Timeout** | 30s per test (`jest.setup.js` also sets a 10s default) |
-| **Setup** | `jest.setup.js` (mocks console noise; keeps `console.error`) |
+| Setting             | Value                                                        |
+| ------------------- | ------------------------------------------------------------ |
+| **Environment**     | `node`                                                       |
+| **Roots**           | `src/commerce-backend-ui-1`                                  |
+| **Unit test match** | Files under `test/`, or `*.test.*` / `*.spec.*`              |
+| **Ignored paths**   | `e2e/`, `hooks/`, `web-src/`, `node_modules/`                |
+| **Transform**       | `ts-jest` (uses root `tsconfig.json`)                        |
+| **Timeout**         | 30s per test (`jest.setup.js` also sets a 10s default)       |
+| **Setup**           | `jest.setup.js` (mocks console noise; keeps `console.error`) |
 
 Path aliases in tests match the app (`@actions`, `@lib`, `@web`, `@components`, `@types`, `@utils`) via `moduleNameMapper` in `jest.config.js`.
 
@@ -311,10 +356,10 @@ aio app undeploy  # remove the deployment
 
 The `pre-app-deploy` hook runs before every deploy. When you deploy **from your local machine**, it allows only workspaces whose names are **not** `stage` or `production` (case-insensitive). That is why [Prerequisites](#prerequisites) recommends a personal development workspace.
 
-| Environment | Local `aio app deploy` | CI/CD deploy |
-| --- | --- | --- |
-| Your dev workspace (e.g. `dev-yourname`) | Allowed | Allowed |
-| `stage` | Blocked | Allowed |
-| `production` | Blocked | Allowed |
+| Environment                              | Local `aio app deploy` | CI/CD deploy |
+| ---------------------------------------- | ---------------------- | ------------ |
+| Your dev workspace (e.g. `dev-yourname`) | Allowed                | Allowed      |
+| `stage`                                  | Blocked                | Allowed      |
+| `production`                             | Blocked                | Allowed      |
 
 CI/CD pipelines set `CI` / `GITHUB_ACTIONS` (or similar), so the hook skips these checks and Stage/Production deploys proceed in the pipeline.

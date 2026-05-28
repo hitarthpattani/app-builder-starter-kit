@@ -1,3 +1,12 @@
+application:
+  hooks:
+    post-app-build: mkdir -p dist/application/actions
+  runtimeManifest:
+    database:
+      auto-provision: true
+      region: amer
+    packages: {}
+
 extensions:
   commerce/backend-ui/1:
     $include: src/commerce-backend-ui-1/ext.config.yaml

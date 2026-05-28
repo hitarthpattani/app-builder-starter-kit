@@ -5,9 +5,12 @@
 import { EXTENSION_ID } from '@actions/constants'
 import { RuntimeAction, HttpMethod, RuntimeActionResponse } from '@adobe-commerce/aio-toolkit'
 
+/**
+ * Admin UI SDK registration action that returns the registration configuration for the extension.
+ */
 export const main = RuntimeAction.execute(
   'admin-ui-sdk-registration-action',
-  [HttpMethod.GET, HttpMethod.POST],
+  [HttpMethod.POST],
   [],
   [],
   async () => {

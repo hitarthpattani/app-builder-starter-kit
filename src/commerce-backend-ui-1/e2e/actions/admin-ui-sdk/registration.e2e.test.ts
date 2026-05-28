@@ -16,7 +16,8 @@ describe('registration action e2e tests', () => {
   describe('successful scenarios', () => {
     it('should return registration configuration', async () => {
       const params = {
-        __ow_headers: {}
+        __ow_headers: {},
+        __ow_method: 'post'
       }
 
       const result = (await action.main(params)) as {
@@ -37,7 +38,8 @@ describe('registration action e2e tests', () => {
 
     it('should return correct menu items structure', async () => {
       const params = {
-        __ow_headers: {}
+        __ow_headers: {},
+        __ow_method: 'post'
       }
 
       const result = (await action.main(params)) as {
@@ -73,7 +75,8 @@ describe('registration action e2e tests', () => {
 
     it('should return correct page configuration', async () => {
       const params = {
-        __ow_headers: {}
+        __ow_headers: {},
+        __ow_method: 'post'
       }
 
       const result = (await action.main(params)) as {
@@ -93,7 +96,8 @@ describe('registration action e2e tests', () => {
 
     it('should work without any parameters', async () => {
       const params = {
-        __ow_headers: {}
+        __ow_headers: {},
+        __ow_method: 'post'
       }
 
       const result = (await action.main(params)) as {
@@ -112,6 +116,7 @@ describe('registration action e2e tests', () => {
     it('should accept different LOG_LEVEL values', async () => {
       const params = {
         __ow_headers: {},
+        __ow_method: 'post',
         LOG_LEVEL: 'debug'
       }
 

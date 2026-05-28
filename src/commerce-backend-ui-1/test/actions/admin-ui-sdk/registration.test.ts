@@ -6,39 +6,12 @@ import type { SuccessResponse } from '@adobe-commerce/aio-toolkit'
 import { EXTENSION_ID } from '@actions/constants'
 import { main as registrationAction } from '../../../actions/admin-ui-sdk/registration/index'
 
-// Type for OpenWhisk action parameters
 type ActionParams = Record<string, unknown>
 
-jest.mock('@adobe-commerce/aio-toolkit', () => {
-  const actual = jest.requireActual('@adobe-commerce/aio-toolkit')
-  return {
-    ...actual,
-    AdminUiSdk: jest.fn().mockImplementation((extensionId: string) => ({
-      addMenuItem: jest.fn(),
-      addMenuSection: jest.fn(),
-      addPage: jest.fn(),
-      getRegistration: jest.fn().mockResolvedValue({
-        menuItems: [
-          {
-            id: `${extensionId}::app_builder_extension`,
-            title: 'App Builder Extension',
-            parent: `${extensionId}::apps`,
-            sortOrder: 100
-          },
-          {
-            id: `${extensionId}::apps`,
-            title: 'Apps',
-            isSection: true,
-            sortOrder: 100
-          }
-        ],
-        page: {
-          title: 'App Builder Extension'
-        }
-      })
-    }))
-  }
-})
+const baseParams: ActionParams = {
+  __ow_headers: {},
+  __ow_method: 'post'
+}
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -47,12 +20,7 @@ beforeEach(() => {
 describe('registration action', () => {
   describe('successful scenarios', () => {
     it('should return registration configuration with menu items and page', async () => {
-      const params: ActionParams = {
-        __ow_headers: {},
-        __ow_method: 'get'
-      }
-
-      const response = (await registrationAction(params)) as SuccessResponse
+      const response = (await registrationAction(baseParams)) as SuccessResponse
       const body = response.body as Record<string, unknown>
       const registration = body.registration as Record<string, unknown>
 
@@ -62,12 +30,7 @@ describe('registration action', () => {
     })
 
     it('should return correct menu items structure', async () => {
-      const params: ActionParams = {
-        __ow_headers: {},
-        __ow_method: 'get'
-      }
-
-      const response = (await registrationAction(params)) as SuccessResponse
+      const response = (await registrationAction(baseParams)) as SuccessResponse
       const body = response.body as Record<string, unknown>
       const registration = body.registration as Record<string, unknown>
 
@@ -88,12 +51,7 @@ describe('registration action', () => {
     })
 
     it('should return correct page configuration', async () => {
-      const params: ActionParams = {
-        __ow_headers: {},
-        __ow_method: 'get'
-      }
-
-      const response = (await registrationAction(params)) as SuccessResponse
+      const response = (await registrationAction(baseParams)) as SuccessResponse
       const body = response.body as Record<string, unknown>
       const registration = body.registration as Record<string, unknown>
 
@@ -102,7 +60,7 @@ describe('registration action', () => {
       })
     })
 
-    it('should work without any parameters', async () => {
+    it('should work with minimal parameters', async () => {
       const params: ActionParams = {
         __ow_headers: {},
         __ow_method: 'post'
@@ -120,12 +78,7 @@ describe('registration action', () => {
 
   describe('extension ID usage', () => {
     it('should use EXTENSION_ID constant in menu item IDs', async () => {
-      const params: ActionParams = {
-        __ow_headers: {},
-        __ow_method: 'get'
-      }
-
-      const response = (await registrationAction(params)) as SuccessResponse
+      const response = (await registrationAction(baseParams)) as SuccessResponse
       const body = response.body as Record<string, unknown>
       const registration = body.registration as Record<string, unknown>
       const menuItems = registration.menuItems as Array<{ id: string; parent?: string }>
