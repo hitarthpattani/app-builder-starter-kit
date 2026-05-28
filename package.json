@@ -5,6 +5,7 @@
   "dependencies": {
     "@adobe-commerce/aio-experience-kit": "^1.0.4",
     "@adobe-commerce/aio-toolkit": "^1.2.6",
+    "@adobe-commerce/commerce-extensibility-tools": "^3.4.0",
     "@adobe/aio-lib-db": "^1.0.3",
     "@adobe/aio-lib-ims": "^8.1.2",
     "@adobe/aio-lib-telemetry": "^1.2.0",
