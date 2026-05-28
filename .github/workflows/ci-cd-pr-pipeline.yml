@@ -84,6 +84,10 @@ jobs:
       - name: Build Application (AIO CLI)
         env:
           AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_STAGE }}
+          IMS_OAUTH_S2S_CLIENT_ID: ${{ secrets.CLIENTID_STAGE }}
+          IMS_OAUTH_S2S_CLIENT_SECRET: ${{ secrets.CLIENTSECRET_STAGE }}
+          IMS_OAUTH_S2S_ORG_ID: ${{ secrets.IMSORGID_STAGE }}
+          IMS_OAUTH_S2S_SCOPES: ${{ secrets.SCOPES_STAGE }}
         uses: adobe/aio-apps-action@3.3.0
         with:
           os: ${{ matrix.os }}
