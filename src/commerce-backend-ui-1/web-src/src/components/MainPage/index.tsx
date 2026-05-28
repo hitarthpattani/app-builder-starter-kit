@@ -3,7 +3,15 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { View, Flex, ProgressCircle, Text, Provider, lightTheme } from '@adobe/react-spectrum'
+import {
+  View,
+  Flex,
+  ProgressCircle,
+  Text,
+  Provider,
+  lightTheme,
+  Heading
+} from '@adobe/react-spectrum'
 import type { MainPageProps } from './types'
 import { attach } from '@adobe/uix-guest'
 import { EXTENSION_ID } from '@web/types/constants'
@@ -13,7 +21,7 @@ import ShoppingCartIcon from '@spectrum-icons/workflow/ShoppingCart'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import ActionsForm from '../ActionsForm'
 
-export const MainPage: React.FC<MainPageProps> = ({ runtime: _runtime, ims }) => {
+export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -37,19 +45,24 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: _runtime, ims }) =>
       icon: <HomeIcon size={'S'} gridArea="Home" marginEnd={'size-100'} />
     },
     {
-      label: 'Products',
-      path: '/products',
+      label: 'Actions',
+      path: '/actions',
       icon: <ShoppingCartIcon size={'S'} gridArea="Products" marginEnd={'size-100'} />
     }
   ]
   const appRoutes = [
     {
       paths: ['/'],
-      component: <Text>Home</Text>
+      component: (
+        <View>
+          <Heading level={1}>Home</Heading>
+          <Text>Welcome to the Home page</Text>
+        </View>
+      )
     },
     {
-      paths: ['/products'],
-      component: <Text>Products</Text>
+      paths: ['/actions'],
+      component: <ActionsForm ims={ims} runtime={runtime} />
     }
   ]
 
@@ -58,14 +71,20 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: _runtime, ims }) =>
     <HashRouter>
       <Provider theme={lightTheme} colorScheme={'light'}>
         <Routes>
-          <Route index element={<ActionsForm ims={ims} runtime={_runtime} />} />
+          <Route index element={<ActionsForm ims={ims} runtime={runtime} />} />
         </Routes>
       </Provider>
     </HashRouter>
   )
 
   const renderMainContainer = () => (
-    <MainContainer buttons={navigationButtons} routes={appRoutes} padding={'size-0'} />
+    <MainContainer
+      buttons={navigationButtons}
+      routes={appRoutes}
+      padding={'size-0'}
+      navigationMarginTop={'size-200'}
+      navigationMarginBottom={'size-200'}
+    />
   )
 
   return (

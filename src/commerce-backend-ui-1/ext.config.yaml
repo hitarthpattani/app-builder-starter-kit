@@ -9,10 +9,6 @@ hooks:
   pre-app-deploy: hooks/pre-app-deploy.js
 runtimeManifest:
   packages:
-    example:
-      license: Apache-2.0
-      actions:
-        $include: actions/example/actions.config.yaml
     admin-ui-sdk:
       license: Apache-2.0
       actions:
