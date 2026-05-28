@@ -62,6 +62,7 @@
     "dev:fresh": "npm run dev:reset && npm run lint:fix && npm run format",
     "dev:validate": "npm run build:all && npm run lint:check && npm run format:check && npm run type-check && npm run test:ci",
     "dev:setup": "npm install && npm run prepare",
+    "app": "aio app run",
     "setup": "npx aio-toolkit-cli-workflow env:setup",
     "setup:config": "npx aio-toolkit-cli-workflow env:setup --config-file",
     "reset": "npx aio-toolkit-cli-workflow env:reset",
