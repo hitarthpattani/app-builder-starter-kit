@@ -19,7 +19,7 @@ const TransformPathAliases = require('./pre-app-build/transform-path-aliases')
 // Load environment variables from .env file
 require('dotenv').config()
 
-module.exports = () => {
+const run = () => {
   // Load AIO_runtime_namespace environment variable
   const aioNamespace = process.env.AIO_runtime_namespace || 'extension'
 
@@ -51,4 +51,10 @@ module.exports = () => {
     // Exit with error code to prevent deployment with stale/missing actions
     process.exit(1)
   }
+}
+
+module.exports = run
+
+if (require.main === module) {
+  run()
 }
