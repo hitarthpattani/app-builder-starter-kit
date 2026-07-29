@@ -48,3 +48,6 @@ HPattaniExtCompile-*.json
 # Workspace config files
 *-StarterKit.json
 *-HPattani.json
+
+src/commerce-configuration-1
+src/commerce-extensibility-1
