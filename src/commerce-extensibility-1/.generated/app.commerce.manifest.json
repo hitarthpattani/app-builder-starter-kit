@@ -1,11 +1,11 @@
 {
   "adminUi": {
     "menu": {
-      "description": "App with Navigation Pane",
-      "id": "CustomMenuNavigation::main",
-      "label": "App with Navigation Pane",
+      "description": "Application",
+      "id": "AdobeCommerceAppBuilderStarterKit::application",
+      "label": "Application",
       "pageTitle": "Adobe Commerce App with Navigation Pane",
-      "parentMenu": "content"
+      "parentMenu": "system"
     }
   },
   "businessConfig": {

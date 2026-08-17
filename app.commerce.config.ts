@@ -1,5 +1,5 @@
 import { defineConfig } from '@adobe/aio-commerce-lib-app/config'
-import { MENU_CONTENT } from '@adobe/aio-commerce-sdk/admin-ui/menu'
+import { MENU_SYSTEM } from '@adobe/aio-commerce-sdk/admin-ui/menu'
 
 export default defineConfig({
   metadata: {
@@ -10,11 +10,11 @@ export default defineConfig({
   },
   adminUi: {
     menu: {
-      description: 'App with Navigation Pane',
-      id: 'CustomMenuNavigation::main',
-      label: 'App with Navigation Pane',
+      description: 'Application',
+      id: 'AdobeCommerceAppBuilderStarterKit::application',
+      label: 'Application',
       pageTitle: 'Adobe Commerce App with Navigation Pane',
-      parentMenu: MENU_CONTENT
+      parentMenu: MENU_SYSTEM
     }
   },
   businessConfig: {
