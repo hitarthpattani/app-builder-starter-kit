@@ -46,8 +46,4 @@ HPattaniExtCompile-*.json
 /admin-ui-sdk
 
 # Workspace config files
-*-StarterKit.json
-*-HPattani.json
-
-src/commerce-configuration-1
-src/commerce-extensibility-1
+990BronzeKingfisher-1244026-*.json

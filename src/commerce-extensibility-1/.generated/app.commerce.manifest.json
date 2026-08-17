@@ -1,0 +1,71 @@
+{
+  "adminUi": {
+    "menu": {
+      "description": "App with Navigation Pane",
+      "id": "CustomMenuNavigation::main",
+      "label": "App with Navigation Pane",
+      "pageTitle": "Adobe Commerce App with Navigation Pane",
+      "parentMenu": "content"
+    }
+  },
+  "businessConfig": {
+    "schema": [
+      {
+        "default": [
+          "a"
+        ],
+        "label": "Sample List",
+        "name": "sampleList",
+        "options": [
+          {
+            "label": "Option A",
+            "value": "a"
+          },
+          {
+            "label": "Option B",
+            "value": "b"
+          }
+        ],
+        "selectionMode": "multiple",
+        "type": "list"
+      },
+      {
+        "default": "Hello, world!",
+        "label": "Sample Text",
+        "name": "sampleText",
+        "type": "text"
+      }
+    ]
+  },
+  "eventing": {
+    "commerce": [
+      {
+        "events": [
+          {
+            "description": "Triggered when a checkout is submitted",
+            "fields": [
+              {
+                "name": "order"
+              }
+            ],
+            "label": "Checkout Submit All After",
+            "name": "observer.checkout_submit_all_after",
+            "runtimeActions": [
+              "commerce-events/checkout-submit-consumer"
+            ]
+          }
+        ],
+        "provider": {
+          "description": "A description for your Commerce Events.",
+          "label": "Commerce Events"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "description": "A custom Adobe Commerce application. Fill description for your app.",
+    "displayName": "Adobe Commerce App Builder Starter Kit",
+    "id": "adobe-commerce-app-builder-starter-kit",
+    "version": "1.0.0"
+  }
+}
