@@ -17,11 +17,15 @@ import { attach } from '@adobe/uix-guest'
 import { EXTENSION_ID } from '@web/types/constants'
 import { MainContainer } from '@adobe-commerce/aio-experience-kit'
 import HomeIcon from '@spectrum-icons/workflow/Home'
-import ShoppingCartIcon from '@spectrum-icons/workflow/ShoppingCart'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import ActionsForm from '../ActionsForm'
+import { ToastContainer } from '@react-spectrum/toast'
 
-export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => {
+export const MainPage: React.FC<MainPageProps> = ({
+  runtime: runtime,
+  ims,
+  useActionsForm = false
+}) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -43,11 +47,6 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => 
       label: 'Home',
       path: '/',
       icon: <HomeIcon size={'S'} gridArea="Home" marginEnd={'size-100'} />
-    },
-    {
-      label: 'Actions',
-      path: '/actions',
-      icon: <ShoppingCartIcon size={'S'} gridArea="Products" marginEnd={'size-100'} />
     }
   ]
   const appRoutes = [
@@ -59,14 +58,9 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => 
           <Text>Welcome to the Home page</Text>
         </View>
       )
-    },
-    {
-      paths: ['/actions'],
-      component: <ActionsForm ims={ims} runtime={runtime} />
     }
   ]
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderActionsForm = () => (
     <HashRouter>
       <Provider theme={lightTheme} colorScheme={'light'}>
@@ -78,14 +72,20 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => 
   )
 
   const renderMainContainer = () => (
-    <MainContainer
-      buttons={navigationButtons}
-      routes={appRoutes}
-      padding={'size-0'}
-      navigationMarginTop={'size-200'}
-      navigationMarginBottom={'size-200'}
-    />
+    <Provider theme={lightTheme} colorScheme={'light'}>
+      <MainContainer
+        buttons={navigationButtons}
+        routes={appRoutes}
+        padding={'size-0'}
+        navigationMarginTop={'size-250'}
+        navigationMarginBottom={'size-250'}
+      />
+      <ToastContainer placement="top end" />
+    </Provider>
   )
+
+  // Switch between ActionsForm and MainContainer views
+  const renderView = () => (useActionsForm ? renderActionsForm() : renderMainContainer())
 
   return (
     <View>
@@ -94,7 +94,7 @@ export const MainPage: React.FC<MainPageProps> = ({ runtime: runtime, ims }) => 
           <ProgressCircle size="L" aria-label="Loading…" isIndeterminate />
         </Flex>
       ) : (
-        <View width="size-6000">{renderMainContainer()}</View>
+        <View width="size-6000">{renderView()}</View>
       )}
     </View>
   )

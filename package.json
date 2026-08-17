@@ -16,6 +16,7 @@
     "@adobe/react-spectrum": "^3.4.0",
     "@adobe/uix-guest": "^1.0.5",
     "@opentelemetry/resources": "^2.7.1",
+    "@react-spectrum/toast": "^3.2.1",
     "@spectrum-icons/workflow": "^3.2.0",
     "cloudevents": "^4.0.2",
     "core-js": "^3.6.4",

@@ -18,16 +18,19 @@ export const main = RuntimeAction.execute(
       registration: {
         menuItems: [
           {
-            id: `${EXTENSION_ID}::first`,
-            title: 'Adobe Commerce First App on App Builder',
-            parent: `${EXTENSION_ID}::apps`,
-            sortOrder: 1
+            id: `${EXTENSION_ID}::application`,
+            title: 'Application',
+            parent: `${EXTENSION_ID}::checkout_integration`,
+            sortOrder: 1,
+            sandbox: 'allow-downloads allow-popups'
           },
           {
-            id: `${EXTENSION_ID}::apps`,
-            title: 'Apps',
+            id: `${EXTENSION_ID}::first`,
+            title: 'Adobe Commerce First App on App Builder',
+            parent: 'Magento_Backend::system',
             isSection: true,
-            sortOrder: 100
+            sortOrder: 100,
+            sandbox: 'allow-downloads allow-popups'
           }
         ],
         page: {
