@@ -38,7 +38,7 @@ describe('registration action', () => {
         {
           id: `${EXTENSION_ID}::application`,
           title: 'Application',
-          parent: `${EXTENSION_ID}::checkout_integration`,
+          parent: `${EXTENSION_ID}::first`,
           sortOrder: 1,
           sandbox: 'allow-downloads allow-popups'
         },
