@@ -22,7 +22,8 @@
       "@web/*": ["./src/commerce-backend-ui-2/web-src/src/*"],
       "@components/*": ["./src/commerce-backend-ui-2/web-src/src/components/*"],
       "@types/*": ["./src/commerce-backend-ui-2/web-src/src/types/*"],
-      "@utils/*": ["./src/commerce-backend-ui-2/web-src/src/utils/*"]
+      "@utils/*": ["./src/commerce-backend-ui-2/web-src/src/utils/*"],
+      "#app.commerce.config": ["./src/commerce-extensibility-1/.generated/app.commerce.config.js"]
     },
     /* Strict Type-Checking Options - Relaxed for JS files */
     "checkJs": false,
@@ -55,11 +56,5 @@
     "src/commerce-backend-ui-2/scripts/**/*",
     "src/commerce-backend-ui-2/test/**/*"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    "src/commerce-backend-ui-2/web-src/src/exc-runtime.js"
-  ]
+  "exclude": ["node_modules", "dist", "build", "coverage"]
 }

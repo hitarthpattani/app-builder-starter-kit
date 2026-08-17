@@ -17,16 +17,16 @@
     "@adobe/react-spectrum": "^3.4.0",
     "@adobe/uix-guest": "^1.0.5",
     "@opentelemetry/resources": "^2.7.1",
+    "@react-spectrum/s2": "^1.6.0",
     "@react-spectrum/toast": "^3.2.1",
-    "@spectrum-icons/workflow": "^3.2.0",
+    "@spectrum-icons/workflow": "^4.3.1",
     "cloudevents": "^4.0.2",
     "core-js": "^3.6.4",
     "dotenv": "^17.2.1",
     "graphql": "^16.14.0",
     "node-fetch": "^2.6.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-error-boundary": "^1.2.5",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-router-dom": "^6.26.2",
     "regenerator-runtime": "^0.13.5",
     "uuid": "^8.0.0"
@@ -101,11 +101,28 @@
     "postinstall": "npx aio-commerce-lib-app hooks postinstall"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22 <=24"
   },
   "description": "A custom Adobe Commerce application. Fill description for your app.",
   "imports": {
     "#app.commerce.config": "./src/commerce-extensibility-1/.generated/app.commerce.config.js",
     "#web/*": "./src/commerce-backend-ui-2/web-src/src/*"
+  },
+  "@parcel/bundler-default": {
+    "manualSharedBundles": [
+      {
+        "assets": [
+          "**/@react-spectrum/s2/**",
+          "src/commerce-backend-ui-2/web-src/*.{js,jsx,ts,tsx}"
+        ],
+        "name": "s2-styles",
+        "types": [
+          "css"
+        ]
+      }
+    ]
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
   }
 }
