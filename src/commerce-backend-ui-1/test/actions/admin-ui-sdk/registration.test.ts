@@ -10,7 +10,7 @@ type ActionParams = Record<string, unknown>
 
 const baseParams: ActionParams = {
   __ow_headers: {},
-  __ow_method: 'post'
+  __ow_method: 'get'
 }
 
 beforeEach(() => {
@@ -66,7 +66,7 @@ describe('registration action', () => {
     it('should work with minimal parameters', async () => {
       const params: ActionParams = {
         __ow_headers: {},
-        __ow_method: 'post'
+        __ow_method: 'get'
       }
 
       const response = (await registrationAction(params)) as SuccessResponse

@@ -10,7 +10,7 @@ import { RuntimeAction, HttpMethod, RuntimeActionResponse } from '@adobe-commerc
  */
 export const main = RuntimeAction.execute(
   'admin-ui-sdk-registration-action',
-  [HttpMethod.POST],
+  [HttpMethod.GET],
   [],
   [],
   async () => {
