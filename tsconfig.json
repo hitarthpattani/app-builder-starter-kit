@@ -11,19 +11,18 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ES2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": ".",
     "paths": {
-      "@actions/*": ["src/commerce-backend-ui-1/actions/*"],
-      "@lib/*": ["src/commerce-backend-ui-1/lib/*"],
-      "@web/*": ["src/commerce-backend-ui-1/web-src/src/*"],
-      "@components/*": ["src/commerce-backend-ui-1/web-src/src/components/*"],
-      "@types/*": ["src/commerce-backend-ui-1/web-src/src/types/*"],
-      "@utils/*": ["src/commerce-backend-ui-1/web-src/src/utils/*"]
+      "@actions/*": ["./src/commerce-backend-ui-1/actions/*"],
+      "@lib/*": ["./src/commerce-backend-ui-1/lib/*"],
+      "@web/*": ["./src/commerce-backend-ui-1/web-src/src/*"],
+      "@components/*": ["./src/commerce-backend-ui-1/web-src/src/components/*"],
+      "@types/*": ["./src/commerce-backend-ui-1/web-src/src/types/*"],
+      "@utils/*": ["./src/commerce-backend-ui-1/web-src/src/utils/*"]
     },
     /* Strict Type-Checking Options - Relaxed for JS files */
     "checkJs": false,
