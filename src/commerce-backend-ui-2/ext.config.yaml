@@ -9,10 +9,6 @@ hooks:
   pre-app-deploy: hooks/pre-app-deploy.js
 runtimeManifest:
   packages:
-    admin-ui-sdk:
-      license: Apache-2.0
-      actions:
-        $include: actions/admin-ui-sdk/actions.config.yaml
     commerce-events:
       license: Apache-2.0
       actions:
