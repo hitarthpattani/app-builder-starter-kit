@@ -26,15 +26,15 @@
     "noImplicitUseStrict": false
   },
   "include": [
-    "src/commerce-backend-ui-1/**/*.ts",
-    "src/commerce-backend-ui-1/**/*.tsx"
+    "src/commerce-backend-ui-2/**/*.ts",
+    "src/commerce-backend-ui-2/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "build",
     "coverage",
-    "src/commerce-backend-ui-1/test"
+    "src/commerce-backend-ui-2/test"
   ]
 }
 
