@@ -5,7 +5,7 @@ export default defineConfig({
   metadata: {
     id: 'adobe-commerce-app-builder-starter-kit',
     displayName: 'Adobe Commerce App Builder Starter Kit',
-    version: '1.0.0',
+    version: '0.0.1',
     description: 'A custom Adobe Commerce application. Fill description for your app.'
   },
   adminUi: {
@@ -13,8 +13,9 @@ export default defineConfig({
       description: 'Application',
       id: 'AdobeCommerceAppBuilderStarterKit::application',
       label: 'Application',
-      pageTitle: 'Adobe Commerce App with Navigation Pane',
-      parentMenu: MENU_SYSTEM
+      pageTitle: 'Adobe Commerce App Builder Starter Kit',
+      parentMenu: MENU_SYSTEM,
+      aclProtected: true
     }
   },
   businessConfig: {
