@@ -3,9 +3,8 @@
  */
 
 import React, { Component } from 'react'
-import { ExtensionRegistration } from '@components/ExtensionRegistration'
-import type { AppProps } from './types'
-import type { ConfigurationData, HistoryData } from '@web/types'
+import { useIms } from '@adobe/aio-commerce-lib-admin-ui/web'
+import { MainPage } from '@components/MainPage'
 import type { ErrorBoundaryState, ErrorBoundaryProps } from '@web/types/ui'
 
 // Error Boundary Component
@@ -38,26 +37,12 @@ class CustomErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 // Main App Component
-const App: React.FC<AppProps> = props => {
-  console.log('runtime object:', props.runtime)
-  console.log('ims object:', props.ims)
-
-  // use exc runtime event handlers
-  // respond to configuration change events (e.g. user switches org)
-  props.runtime.on('configuration', (data: unknown) => {
-    const { imsOrg, imsToken, locale } = data as ConfigurationData
-    console.log('configuration change', { imsOrg, imsToken, locale })
-  })
-
-  // respond to history change events
-  props.runtime.on('history', (data: unknown) => {
-    const { type, path } = data as HistoryData
-    console.log('history change', { type, path })
-  })
+const App: React.FC = () => {
+  const { data: ims } = useIms()
 
   return (
     <CustomErrorBoundary>
-      <ExtensionRegistration runtime={props.runtime} ims={props.ims} />
+      <MainPage runtime={{ on: () => {} }} ims={{ token: ims?.imsToken, org: ims?.imsOrgId }} />
     </CustomErrorBoundary>
   )
 }

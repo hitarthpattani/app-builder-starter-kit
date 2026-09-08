@@ -46,8 +46,8 @@ HPattaniExtCompile-*.json
 /admin-ui-sdk
 
 # Workspace config files
-*-StarterKit.json
-*-HPattani.json
+990BronzeKingfisher-1244026-*.json
 
+# Auto-generated extensions (recreated by aio-commerce-lib-app postinstall/generate)
 src/commerce-configuration-1
 src/commerce-extensibility-1

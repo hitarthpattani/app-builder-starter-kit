@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./build",
-    "rootDir": "./src/commerce-backend-ui-1",
+    "rootDir": "./src/commerce-backend-ui-2",
     "module": "ES2020",
     "target": "es2020",
     "declaration": true,
@@ -16,20 +16,20 @@
     "strict": true,
     "noEmit": false,
     "paths": {
-      "@actions/*": ["./src/commerce-backend-ui-1/actions/*"],
-      "@lib/*": ["./src/commerce-backend-ui-1/lib/*"],
-      "@scripts/*": ["./src/commerce-backend-ui-1/scripts/*"]
+      "@actions/*": ["./src/commerce-backend-ui-2/actions/*"],
+      "@lib/*": ["./src/commerce-backend-ui-2/lib/*"],
+      "@scripts/*": ["./src/commerce-backend-ui-2/scripts/*"]
     }
   },
   "include": [
-    "src/commerce-backend-ui-1/actions/**/*",
-    "src/commerce-backend-ui-1/lib/**/*",
-    "src/commerce-backend-ui-1/scripts/**/*"
+    "src/commerce-backend-ui-2/actions/**/*",
+    "src/commerce-backend-ui-2/lib/**/*",
+    "src/commerce-backend-ui-2/scripts/**/*"
   ],
   "exclude": [
-    "src/commerce-backend-ui-1/actions/**/*.js",
-    "src/commerce-backend-ui-1/lib/**/*.js",
-    "src/commerce-backend-ui-1/scripts/**/*.js",
+    "src/commerce-backend-ui-2/actions/**/*.js",
+    "src/commerce-backend-ui-2/lib/**/*.js",
+    "src/commerce-backend-ui-2/scripts/**/*.js",
     "node_modules",
     "build"
   ]

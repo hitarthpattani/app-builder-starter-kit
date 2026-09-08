@@ -5,14 +5,10 @@ operations:
 actions: actions
 web: web-src
 hooks:
-  pre-app-build: hooks/pre-app-build.js
+  pre-app-build: node hooks/pre-app-build.js && EXTENSION=backend-ui/2 npx aio-commerce-lib-app hooks pre-app-build
   pre-app-deploy: hooks/pre-app-deploy.js
 runtimeManifest:
   packages:
-    admin-ui-sdk:
-      license: Apache-2.0
-      actions:
-        $include: actions/admin-ui-sdk/actions.config.yaml
     commerce-events:
       license: Apache-2.0
       actions:

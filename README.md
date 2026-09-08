@@ -4,11 +4,11 @@ A starter template for building **Adobe Commerce Admin UI extensions** with [Ado
 
 ## Overview
 
-This project wires up a `commerce/backend-ui/1` extension with:
+This project wires up a `commerce/backend-ui/2` extension with:
 
 - **Admin UI** — React app using React Spectrum and the Admin UI SDK (`@adobe/uix-guest`) to run inside the Commerce Admin
 - **Runtime actions** — Example actions (including Admin UI SDK registration) built with `@adobe-commerce/aio-toolkit`
-- **Shared libraries** — Reusable code under `src/commerce-backend-ui-1/lib` (for example, `database/repository/user`)
+- **Shared libraries** — Reusable code under `src/commerce-backend-ui-2/lib` (for example, `database/repository/user`)
 - **Tooling** — TypeScript, Jest unit tests, ESLint, Prettier, and deploy hooks
 
 After console setup and `npm run reset` / `npm run setup`, you can run the UI locally, deploy to your dev workspace, and extend the sample components and actions.
@@ -188,10 +188,10 @@ You can pass any other `aio app run` flags after `--` (for example, `npm run app
 
 ## Ways of Working
 
-All application code for this extension lives under `src/commerce-backend-ui-1/`. Follow the layout below so actions, shared logic, and UI stay separated and deploy correctly.
+All application code for this extension lives under `src/commerce-backend-ui-2/`. Follow the layout below so actions, shared logic, and UI stay separated and deploy correctly.
 
 ```
-src/commerce-backend-ui-1/
+src/commerce-backend-ui-2/
 ├── actions/          # Adobe I/O Runtime actions (serverless)
 ├── lib/              # Shared TypeScript used by actions
 ├── web-src/          # Admin UI (React)
@@ -207,7 +207,7 @@ src/commerce-backend-ui-1/
 
 ### Runtime actions
 
-**Where:** `src/commerce-backend-ui-1/actions/<package>/<action-name>/index.ts`
+**Where:** `src/commerce-backend-ui-2/actions/<package>/<action-name>/index.ts`
 
 Actions are grouped into **packages** (for example `example`, `admin-ui-sdk`). Each package has an `actions.config.yaml` that registers its actions with Runtime. Packages are included from `ext.config.yaml` under `runtimeManifest.packages`.
 
@@ -233,7 +233,7 @@ Use `actions/constants.ts` for values shared across actions (for example extensi
 
 ### Shared code (`lib/`)
 
-**Where:** `src/commerce-backend-ui-1/lib/<module-name>/`
+**Where:** `src/commerce-backend-ui-2/lib/<module-name>/`
 
 Put reusable TypeScript here: services, clients, validators, domain helpers — anything actions need but that should not live in a single action file. The sample `lib/database/` layout uses collections (`lib/database/collection/`) and repositories (`lib/database/repository/`).
 
@@ -249,7 +249,7 @@ import { UserRepository } from '@lib/database/repository/user'
 
 ### Admin UI (`web-src/`)
 
-**Where:** `src/commerce-backend-ui-1/web-src/src/`
+**Where:** `src/commerce-backend-ui-2/web-src/src/`
 
 The Commerce Admin loads this React app. Source lives under `web-src/src/`; `ext.config.yaml` maps `web: web-src`.
 
@@ -281,7 +281,7 @@ Run `npm run build:all` before deploy so `build/actions/` matches your latest `a
 
 Tests use [Jest](https://jestjs.io/) with [ts-jest](https://kulshekhar.github.io/ts-jest/) (`jest.config.js`). **Use the npm scripts below** — not `aio app test`. This starter kit runs Jest directly against TypeScript in `test/`, with path aliases and a **100%** coverage gate. CI, Husky pre-push, and `dev:validate` all call `npm run test:ci`, so local runs stay aligned with the pipeline.
 
-Unit tests target **actions** and **shared libraries** under `src/commerce-backend-ui-1`; the Admin UI (`web-src`) is excluded (see [configuration](#jest-configuration) below).
+Unit tests target **actions** and **shared libraries** under `src/commerce-backend-ui-2`; the Admin UI (`web-src`) is excluded (see [configuration](#jest-configuration) below).
 
 ### Commands
 
@@ -296,7 +296,7 @@ Unit tests target **actions** and **shared libraries** under `src/commerce-backe
 ### Test layout
 
 ```
-src/commerce-backend-ui-1/
+src/commerce-backend-ui-2/
 ├── test/                    # Unit tests (mirrors actions/ and lib/)
 │   ├── actions/
 │   └── lib/
@@ -308,7 +308,7 @@ Unit tests live in `test/` and import from `actions/` and `lib/` using the same 
 
 ### Coverage
 
-Coverage is collected from `src/commerce-backend-ui-1/**/*.{js,jsx,ts,tsx}` with these exclusions:
+Coverage is collected from `src/commerce-backend-ui-2/**/*.{js,jsx,ts,tsx}` with these exclusions:
 
 - `test/`, `web-src/`, type definitions, and `node_modules`
 
@@ -321,7 +321,7 @@ Reports are written to `coverage/` (text, `lcov`, and HTML).
 | Setting             | Value                                                        |
 | ------------------- | ------------------------------------------------------------ |
 | **Environment**     | `node`                                                       |
-| **Roots**           | `src/commerce-backend-ui-1`                                  |
+| **Roots**           | `src/commerce-backend-ui-2`                                  |
 | **Unit test match** | Files under `test/`, or `*.test.*` / `*.spec.*`              |
 | **Ignored paths**   | `hooks/`, `web-src/`, `node_modules/`                        |
 | **Transform**       | `ts-jest` (uses root `tsconfig.json`)                        |

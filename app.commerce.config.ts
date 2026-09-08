@@ -1,11 +1,22 @@
 import { defineConfig } from '@adobe/aio-commerce-lib-app/config'
+import { MENU_SYSTEM } from '@adobe/aio-commerce-sdk/admin-ui/menu'
 
 export default defineConfig({
   metadata: {
     id: 'adobe-commerce-app-builder-starter-kit',
     displayName: 'Adobe Commerce App Builder Starter Kit',
-    version: '1.0.0',
+    version: '0.0.1',
     description: 'A custom Adobe Commerce application. Fill description for your app.'
+  },
+  adminUi: {
+    menu: {
+      description: 'Application',
+      id: 'AdobeCommerceAppBuilderStarterKit::application',
+      label: 'Application',
+      pageTitle: 'Adobe Commerce App Builder Starter Kit',
+      parentMenu: MENU_SYSTEM,
+      aclProtected: true
+    }
   },
   businessConfig: {
     schema: [
